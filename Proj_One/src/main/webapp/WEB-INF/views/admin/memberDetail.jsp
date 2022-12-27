@@ -144,12 +144,14 @@ JavaScript파일을 기존 회원가입소스를 활용할 것인지 새롭게 �
     									>무직</option>
     								</select>
     							</td>
-    							<td></td>
     						</tr>
     						<tr>
     							<td colspan="3">
     								<a href="javascript:history.back();">
-										<button type="button" id="backBtn">회원 리스트</button>		
+										<button type="button" id="backBtn" style="height: 30px; width: 90px;">회원 리스트</button>		
+									</a>
+									<a href="/member/memberMod?num=${Obj.num }">
+										<button type="button" style="height: 30px; width: 90px;">회원정보수정</button>
 									</a>
     							</td>
     						</tr>

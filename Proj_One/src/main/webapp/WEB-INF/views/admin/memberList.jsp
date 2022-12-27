@@ -74,8 +74,8 @@ String uId_Session = (String) session.getAttribute("uId_Session");
 							<c:forEach var="dto" begin="${nowPage*5-5}" end="${nowPage*5-1}" items="${list }">
 								<tr class="prnTr" onclick="read('${dto.num }','${nowPage }')">
 									
-									<td><a href="/admin/memberDetail?num=${dto.num }">${dto.num }</a></td>
-									<td>${dto.uId }</td>
+									<td>${dto.num }</td>
+									<td><a href="/admin/memberDetail?num=${dto.num }">${dto.uId }</a></td>
 									<td>${dto.uName }</td>
 									<td>${dto.uEmail }</td>
 								</tr>
