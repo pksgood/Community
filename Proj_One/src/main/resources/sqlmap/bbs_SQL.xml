@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="bbs">
+
+	<!-- 게시글 등록 -->
+	<insert id="b_insert" parameterType="hashMap"
+		useGeneratedKeys="true">
+		<![CDATA[
+			insert into tblBoard (uId, uName, subject, content, 
+				ref, pos, depth, regTM, ip, readCnt, fileName, fileSize) 
+			values (#{uId}, #{uName}, #{subject}, #{content}, 
+				#{ref}, 0, 0, now(), #{ip}, 0, #{fileName}, #{fileSize})
+		]]>
+	</insert>
+
+	<!-- 작성자 찾기 -->
+	<select id="getName" parameterType="String" resultType="String">
+		<![CDATA[
+			select uName from member 
+			where uId = #{uId}
+		]]>
+	</select>
+	
+	
+	<!-- ref 최대값 찾기 -->
+	<select id="getMaxNum" parameterType="hashMap" resultType="int">
+		<![CDATA[
+			select max(num) from tblBoard
+		]]>
+	</select>
+	
+
+	<!-- 게시글 전체 목록 -->
+	<select id="b_list" parameterType="hashMap" resultType="hashMap">
+ 		<![CDATA[
+ 			select * from tblboard
+ 		]]>
+ 		<if test='keyWord !=null and keyWord !="" '>
+ 			where ${keyField} like '%${keyWord}%'
+ 		</if>
+ 		<![CDATA[
+ 			order by ref desc, depth asc 
+ 		]]>
+ 		
+	</select>
+
+<!-- 페이징처리 -->
+	<!-- 전체 레코드 수 조회 -->
+	<select id="c_list" resultType="int">
+		<![CDATA[
+ 			select count(*) from tblboard 
+ 		]]>
+	</select>
+	
+	<!-- 게시글 상세보기 -->
+	<select id="b_detail" parameterType="int" resultType="hashMap">
+ 		<![CDATA[
+ 			select * from tblboard 
+ 			where num = #{num}
+ 		]]>
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="b_update" parameterType="hashMap">
+		<![CDATA[
+			update tblboard 
+			set subject=#{subject}, content=#{content} 
+			where num=#{num}
+		]]>
+	</update>
+
+
+	<!-- 조회수 증가 -->
+	<update id="b_upCnt" parameterType="int">
+		<![CDATA[
+			update tblboard 
+			set readCnt = readCnt+1
+			where num = #{num}
+		]]>
+	</update>
+
+
+	<!-- 게시글 삭제 -->
+	<delete id="b_delete" parameterType="int">
+		<![CDATA[
+			delete from tblBoard where num = #{num}
+		]]>
+	</delete>
+	
+	
+	
+	
+	<!-- 답변글 쓰기 -->
+	<insert id="com_insert" parameterType="hashMap"
+		useGeneratedKeys="true" keyProperty="int">
+		<![CDATA[
+			insert into tblboard (uId, uName, content, subject, 
+				ref, pos, depth, regTM, readCnt, ip) 
+			values (#{uId}, #{uName}, #{content}, #{subject},
+				#{ref}, #{pos}+1, #{depth}+1, now(), 0, #{ip})
+		]]>
+	</insert>
+	
+	<!-- 댓글처리 -->
+	<update id="com_update" parameterType="hashMap">
+		<![CDATA[
+			update tblboard 
+			set depth= depth+1 
+			where ref = #{ref} and depth > #{depth}
+		]]>
+	</update>
+	
+	
+	<!-- 게시글 번호로 제목, 내용, 이름 찾기 -->
+	<select id="getsub" parameterType="int" resultType="hashMap">
+		<![CDATA[
+			select * from tblBoard 
+			where num = #{num}
+		]]>
+	</select>	
+	
+	
+	
+	<!-- comments 번호별 목록 -->
+	<select id="Commentslist" parameterType="int" resultType="hashMap">
+ 		<![CDATA[
+ 			select * from commentsBoard
+ 			where board_num = #{num}
+ 			order by co_num asc
+ 		]]>
+	</select>
+	<insert id="insertCom" parameterType="hashMap" useGeneratedKeys="true" keyProperty="int">
+		<![CDATA[
+			insert into commentsBoard(uId, uName, content, regTM, board_num, ip)
+			values(#{uId}, #{uName}, #{content}, now(), #{num}, #{ip})
+		]]>
+	</insert>
+	
+	
+
+</mapper>

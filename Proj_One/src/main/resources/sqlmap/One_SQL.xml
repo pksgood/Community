@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" >
+		<![CDATA[
+			insert into member(uId, uPw, uName, uEmail, gender, uBirthday, uZipcode, uAddr, uHobby, uJob, joinTM)
+			values(#{uId}, #{uPw}, #{uName}, #{uEmail}, #{gender}, #{uBirthday}, #{uZipcode}, #{uAddr}, #{uHobby}, #{uJob},  now())
+		]]>
+</insert>
+
+<select id="idChk" parameterType="String" resultType="int">
+	<![CDATA[
+		select count(*) from member where uId = #{uId}
+	]]>
+</select>
+
+<select id="zipChk" parameterType="hashMap" resultType="hashMap">
+	<![CDATA[
+		select zipcode, area1, area2, area3, area4 from tblZipcode where area3 like '%${area3}%'
+	]]>
+</select>
+
+<select id="login" parameterType="hashMap" resultType="int">
+	<![CDATA[
+		select count(*) from member where uId = #{uId} and uPw = #{uPw}
+	]]>
+
+</select>
+
+<select id = "memberMod" parameterType="String" resultType="hashMap">
+	<![CDATA[
+		select uId, uPw, uName, uEmail, gender, uBirthday, uZipcode,uAddr, uHobby, uJob 
+		 from member where uId = #{uId_Session}
+	]]>
+</select>
+<update id="memberUp" parameterType="hashMap">
+	<![CDATA[
+		update member
+		set uId=#{uId}, uPw=#{uPw}, uName=#{uName}, uEmail=#{uEmail}, gender=#{uGender}, uBirthday=#{uBirthday}, uZipcode=#{uZipcode}, uAddr=#{uAddr}, uHobby=#{uHobby}, uJob=#{uJob}
+		where uId = #{uId}
+	]]>
+</update>
+
+<delete id="memberDel" parameterType="String">
+	<![CDATA[
+		delete from member
+		where uId = #{uId}
+	]]>
+</delete>
+
+</mapper>
