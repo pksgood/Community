@@ -28,6 +28,11 @@ public class AdminDAO {
 	}
 	
 	
+	public int m_update(Map<String, Object> map) {
+		return this.sqlSessionTemplate.update("admin.m_update", map);
+	}
+	
+	
 	
 	
 	/**
@@ -140,4 +145,11 @@ public class AdminDAO {
 	public int insertCom(Map<String, Object> map){
 		return this.sqlSessionTemplate.insert("admin.insertCom", map);
 	}
+	
+	public int c_delete(int num) {
+		return this.sqlSessionTemplate.delete("admin.c_delete", num);
+	}
+	
+	
+	
 }

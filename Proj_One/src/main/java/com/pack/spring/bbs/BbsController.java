@@ -400,4 +400,16 @@ public class BbsController {
 	}
 	
 	
+	@RequestMapping(value = "/bbs/c_deleteProc", method = RequestMethod.GET)
+	public ModelAndView c_delete(@RequestParam int num, @RequestParam int co_num,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		ModelAndView mav = new ModelAndView();
+
+		int cnt = this.bbsService.c_delete(co_num);
+		mav.setViewName("redirect:/bbs/read?num=" + num);
+		return mav;
+	}
+	
+	
 }

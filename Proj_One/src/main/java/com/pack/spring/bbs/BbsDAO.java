@@ -132,4 +132,8 @@ public class BbsDAO {
 	public int insertCom(Map<String, Object> map){
 		return this.sqlSessionTemplate.insert("bbs.insertCom", map);
 	}
+	
+	public int c_delete(int num) {
+		return this.sqlSessionTemplate.delete("bbs.c_delete", num);
+	}
 }

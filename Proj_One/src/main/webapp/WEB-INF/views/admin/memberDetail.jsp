@@ -66,27 +66,39 @@ JavaScript파일을 기존 회원가입소스를 활용할 것인지 새롭게 �
     							<td>성별</td>
     							<td>
     								<label>
-    									<c:if test="${Obj.gender == 1}">
-    									 	남
-    									</c:if>
-    									<c:if test="${Obj.gender == 2}">
-    									 	여
-    									</c:if>
+    									<c:choose>
+    										<c:when test="${Obj.gender == 1}">
+    											남
+    										</c:when>
+    										<c:when test="${Obj.gender == 2}">
+    											여
+    										</c:when>
+    										<c:otherwise>정보가 없습니다.</c:otherwise>
+    									</c:choose>
     								</label>
     							</td>
-    							<td>&nbsp;</td>
     						</tr>
     						<tr>
     							<td>생년월일</td>
     							<td>
-    								${Obj.uBirthday}
+    								<c:if test="${empty Obj.uBirthday }">
+    									&nbsp;정보가 없습니다.
+    								</c:if>
+    								<c:if test="${!empty Obj.uBirthday }">
+    									${Obj.uBirthday }
+    								</c:if>
     							</td>
     							<td>&nbsp;</td>
     						</tr>
     						<tr>
     							<td>주소</td>
-    							<td>    								
-    								${Obj.uAddr }
+    							<td>  
+    							<c:if test="${empty Obj.uAddr }">
+    									&nbsp;정보가 없습니다.
+    								</c:if>
+    								<c:if test="${!empty Obj.uAddr }">
+    									${Obj.uAddr }
+    								</c:if>  								
     							</td>
     						</tr>
     						<tr>
@@ -148,11 +160,13 @@ JavaScript파일을 기존 회원가입소스를 활용할 것인지 새롭게 �
     						<tr>
     							<td colspan="3">
     								<a href="javascript:history.back();">
-										<button type="button" id="backBtn" style="height: 30px; width: 90px;">회원 리스트</button>		
+										<button type="button" id="backBtn" class="frmBtn">회원 리스트</button>		
 									</a>
-									<a href="/member/memberMod?num=${Obj.num }">
-										<button type="button" style="height: 30px; width: 90px;">회원정보수정</button>
-									</a>
+									<c:if test="${uId_Session eq 'admin'}">
+										<a href="/admin/memberUpdate?num=${Obj.num }">
+											<button type="button" class="frmBtn">회원정보수정</button>
+										</a>
+									</c:if>
     							</td>
     						</tr>
     					</tbody>

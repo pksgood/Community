@@ -137,7 +137,11 @@
 			values(#{uId}, #{uName}, #{content}, now(), #{num}, #{ip})
 		]]>
 	</insert>
-	
+	<delete id="c_delete" parameterType="int">
+		<![CDATA[
+			delete from commentsBoard where co_num = #{num}
+		]]>
+	</delete>
 	
 
 </mapper>

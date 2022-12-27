@@ -98,5 +98,7 @@ public interface BbsService {
 	List<Map<String, Object>> CommentsList(int num);
 	
 	int insertCom(Map<String, Object> map);
+	
+	int c_delete(int num);
 
 }

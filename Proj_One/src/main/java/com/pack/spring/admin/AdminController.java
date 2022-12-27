@@ -73,21 +73,6 @@ public class AdminController {
 		int nowBlock = (int) Math.ceil((double) currentPage / blockSize);
 		int totalBlock = (int) Math.ceil((double) totalPage / blockSize);
 
-		System.out.println("totalRecord: " + totalRecord);
-		System.out.println("pageSize 현재 페이지에 보여줄 레코드 개수: " + pageSize);
-		System.out.println("totalPage 총 페이지 수: " + totalPage);
-		System.out.println("blockSize 한 블럭에 보여줄 페이지 수: " + blockSize);
-		System.out.println("firstPage 블럭의 시작 페이지: " + firstPage);
-		System.out.println("lastPage 블럭의 마지막 페이지: " + lastPage);
-		System.out.println("curPos 페이지당 시작 board num: " + curPos);
-		System.out.println("currentPage 현재페이지: " + currentPage);
-		System.out.println("nowBlock 현재 블럭: " + nowBlock);
-		System.out.println("totalBlock: " + totalBlock);
-		System.out.println("lastPageNum 페이지당 글 라스트 시작 번호: " + num);
-		System.out.println();
-		System.out.println("=============================================");
-		System.out.println("keyField: " + keyField);
-		System.out.println("keyWord: " + keyWord);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("nowBlock", nowBlock);
@@ -112,7 +97,6 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/memberDetail", method = RequestMethod.GET)
 	public ModelAndView m_detail(@RequestParam int num) {
-		this.adminService.a_upCnt(num);
 
 		Map<String, Object> detailMap = this.adminService.m_detail(num);
 
@@ -124,8 +108,49 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping(value = "/admin/memberUpdate", method = RequestMethod.GET)
+	public ModelAndView m_update(@RequestParam int num) {
+		
+		Map<String, Object> detailMap = this.adminService.m_detail(num);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("Obj", detailMap);
+		mav.setViewName("/admin/memberUpdate");
+		
+		return mav;
+	}
 	
 	
+	@RequestMapping(value="/admin/memberUpdate", method = RequestMethod.POST)
+	public ModelAndView memberMod2(@RequestParam Map<String, Object> map, 
+				@RequestParam(value="uHobby", required = false) String[] hobby, HttpServletRequest request, 
+				@RequestParam int num) {
+	      String[] hobbyName = {"인터넷", "여행", "게임", "영화", "운동"};
+	      char[] hobbyCode = {'0', '0', '0', '0', '0'};
+	      for (int i=0; i<hobby.length; i++) {
+	         for(int j=0; j<hobbyName.length; j++) {
+	            if (hobby[i].equals(hobbyName[j])) {
+	               hobbyCode[j] = '1';
+	            }
+	         }
+	      }
+	    map.put("uHobby", new String(hobbyCode));
+		ModelAndView mav = new ModelAndView();
+		int update = this.adminService.m_update(map);
+		mav.addObject("num", num);
+		mav.addObject("update", update);
+		mav.setViewName("redirect:/admin/memberUpProc");
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin/memberUpProc", method = RequestMethod.GET)
+	public ModelAndView memberModProc(@RequestParam int num) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("num", num);
+		mav.setViewName("/admin/memberUpProc");
+		return mav;
+	}
 	
 	
 	
@@ -423,6 +448,7 @@ public class AdminController {
 		return mav;
 	}
 
+	
 	@RequestMapping(value = "/admin/insertCom", method = RequestMethod.POST)
 	public ModelAndView InsertCom(@RequestParam Map<String, Object> map, @RequestParam int num) {
 		int cnt = this.adminService.insertCom(map);
@@ -430,7 +456,23 @@ public class AdminController {
 		mav.addObject("insert", cnt);
 		mav.setViewName("redirect:/admin/read?num=" + num);
 		return mav;
-
 	}
+	
+	
+	@RequestMapping(value = "/admin/c_deleteProc", method = RequestMethod.GET)
+	public ModelAndView c_delete(@RequestParam int num, @RequestParam int co_num,
+			HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!"+ num);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!"+ co_num);
+		
+		int cnt = this.adminService.c_delete(co_num);
+		mav.setViewName("redirect:/admin/read?num=" + num);
+		return mav;
+	}
+	
+	
 
 }

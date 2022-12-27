@@ -135,5 +135,9 @@ public class BbsServiceImp implements BbsService{
 		return this.bbsDao.insertCom(map);
 	}
 
+	@Override
+	public int c_delete(int num) {
+		return this.bbsDao.c_delete(num);
+	}
 	
 }

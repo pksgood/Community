@@ -116,4 +116,14 @@ public class AdminServiceImp implements AdminService{
 		return this.dao.m_detail(num);
 	}
 
+	@Override
+	public int m_update(Map<String, Object> map) {
+		return this.dao.m_update(map);
+	}
+
+	@Override
+	public int c_delete(int num) {
+		return this.dao.c_delete(num);
+	}
+
 }

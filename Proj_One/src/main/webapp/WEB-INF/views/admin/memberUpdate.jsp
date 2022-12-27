@@ -240,6 +240,7 @@ JavaScript파일을 기존 회원가입소스를 활용할 것인지 새롭게 �
 									</a>
 									<button type="submit" class="frmBtn" onclick="fnJoinSbm2">수 정</button>
     								<button type="reset" class="frmBtn">다시쓰기</button>
+    								<input type="text" name="num" value="${Obj.num }" />
     							</td>
     						</tr>
     					</tbody>

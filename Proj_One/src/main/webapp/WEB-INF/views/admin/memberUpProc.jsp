@@ -3,10 +3,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:choose>
-	<c:when test="${param.update == true }">
+	<c:when test="${param.update > 0 }">
 		<script>
 			alert("회원수정 완료입니다.");
-			location.href = "/";
+			location.href = "/admin/memberDetail?num=${num}";
 		</script>
 	</c:when>
 	<c:otherwise>

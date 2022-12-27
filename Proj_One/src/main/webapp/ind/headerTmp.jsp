@@ -48,6 +48,18 @@ String uId_Session_HTmp = (String)session.getAttribute("uId_Session");
     				<li>|</li>
     				<li class="mainLi"><a href="/admin/notice">공지 게시판</a></li>    				
     				
+    				
+    			<% }else if(uId_Session_HTmp.equals("adminSub")){ %>	
+    				<li class="mainLi"><a href="/">HOME</a></li>
+    				<li>|</li>
+    				<li class="mainLi"><a href="/member/logout">로그아웃</a></li>
+    				<li>|</li>
+    				<li class="mainLi"><a href="/admin/memberList">회원관리</a></li>
+    				<li>|</li>
+    				<li class="mainLi"><a href="/bbs/list">게시판</a></li>    				
+    				<li>|</li>
+    				<li class="mainLi"><a href="/admin/notice">공지 게시판</a></li>	
+    				
     			<% } else { %> 
     			
     				<li class="mainLi"><a href="/">HOME</a></li>

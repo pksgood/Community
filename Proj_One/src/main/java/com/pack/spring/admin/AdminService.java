@@ -14,6 +14,10 @@ public interface AdminService {
 	
 	Map<String, Object> m_detail(int num);
 	
+	int m_update(Map<String, Object> map);
+	
+	int c_delete(int num);
+	
 	
 	
 	/**

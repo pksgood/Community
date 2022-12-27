@@ -121,6 +121,17 @@
 	</select>
 	
 	
+	<!-- 회원 정보수정 -->
+	<update id="m_update" parameterType="hashMap">
+		<![CDATA[
+			update member 
+			set uName=#{uName}, uEmail=#{uEmail}, gender=#{uGender}, uBirthday=#{uBirthday}, 
+				uZipcode=#{uZipcode}, uAddr=#{uAddr}, uHobby=#{uHobby}, uJob=#{uJob} 
+			where num=#{num}
+		]]>
+	</update>
+	
+	
 	
 	
 	<!-- 게시글 번호로 제목, 내용, 이름 찾기 -->
@@ -149,6 +160,16 @@
 			values(#{uId}, #{uName}, #{content}, now(), #{num}, #{ip})
 		]]>
 	</insert>
+	
+	
+	<delete id="c_delete" parameterType="int">
+		<![CDATA[
+			delete from notice_Comments 
+			where co_num = #{co_num}
+		]]>
+	</delete>
+	
+	
 	
 	
 </mapper>
