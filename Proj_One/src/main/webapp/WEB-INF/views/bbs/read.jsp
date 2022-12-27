@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!--   errorPage="/err/errorProc.jsp" -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -51,7 +52,7 @@
 							<td>${data.uName }</td>
 							<td>등록일</td>
 							<!-- td.req 필수입력 -->
-							<td>${data.regTM }</td>
+							<td><fmt:formatDate value="${data.regTM }" type="date"/></td>
 						</tr>
 						<tr>
 							<td>첨부파일</td>
@@ -60,7 +61,7 @@
 								value="${data.fileName }" id="hiddenFname"> <c:if
 									test="${!empty data.fileName}">
 									<span id="downloadFile">${data.fileName}</span>							
-									(<span>${data.fileSize} ${fUnit }</span>)		
+									(<span><fmt:formatNumber value="${data.fileSize }" pattern="#,###"/> ${fUnit }</span>)		
 								</c:if> <c:if test="${empty data.fileName }">
 									등록된 파일이 없습니다.
 								</c:if></td>

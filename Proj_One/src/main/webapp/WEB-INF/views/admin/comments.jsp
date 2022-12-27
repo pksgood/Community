@@ -23,7 +23,7 @@
 	<c:if test="${empty uId }">
 		<textarea rows="4px" cols="90px" readonly>로그인 후 작성 가능합니다.</textarea>
 	</c:if>
-	<form action="/bbs/insertCom" method="post">
+	<form action="/admin/insertCom" method="post">
 	<c:if test="${!empty uId }">
 		<textarea rows="4px" cols="90px" name="content"></textarea>
 	</c:if>

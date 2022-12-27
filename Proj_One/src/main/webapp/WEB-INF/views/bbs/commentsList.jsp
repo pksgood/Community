@@ -34,7 +34,7 @@
 									<td style="text-align: center">${dto.co_num }</td>
 									<td style="text-align: center">${dto.uName }</td>
 									<td>${dto.content }</td>
-									<td>${dto.regTM }</td>
+									<td><fmt:formatDate value="${dto.regTM }" type="date"/></td>
 								</tr>
 							</c:forEach>
 						</c:if>

@@ -5,7 +5,11 @@
 <style>
 	table#c_list{
 		width: 740px;
-
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	table#c_list tr{
+		border: 1px solid black;
 	}
 </style>
 <br>
@@ -13,10 +17,10 @@
 	<table id="c_list">
 					<thead>
 						<tr>
-							<th style="width: 10%">번호</th>
-							<th style="width: 15%">이름</th>
-							<th style="width: 50%;">내용</th>
-							<th style="width: 25%">날짜</th>
+							<!-- <th style="width: 10%">번호</th> -->
+							<th style="width: 20%">이름</th>
+							<th style="width: 60%">내용</th>
+							<th style="width: 20%">날짜</th>
 						</tr>
 						<tr>
 							<td colspan="5" class="spaceTd"></td>
@@ -31,10 +35,12 @@
 						<c:if test="${!empty list }">
 							<c:forEach var="dto" begin="0" end="${list.size()}" items="${list }">
 								<tr class="">
-									<td style="text-align: center">${dto.co_num }</td>
+									<%-- <td style="text-align: center">${dto.co_num }</td> --%>
 									<td style="text-align: center">${dto.uName }</td>
-									<td>${dto.content }</td>
-									<td>${dto.regTM }</td>
+									<td style="margin-left: 500px;">${dto.content }</td>
+									<td style="text-align: center">
+										<fmt:formatDate value="${dto.regTM }" type="date"/>
+									</td>
 								</tr>
 							</c:forEach>
 						</c:if>
